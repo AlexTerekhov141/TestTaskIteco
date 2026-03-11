@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:itecotesttask/features/splash/splash_screen.dart';
+import 'package:itecotesttask/themes/themes.dart';
+import 'package:talker_flutter/talker_flutter.dart';
+import 'core/routes.dart';
 
-import 'core/constants.dart';
+final AppRouter _appRouter = AppRouter();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Iteco Test',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Green.c800),
+      theme: AppThemes.lightTheme,
+      routerConfig: _appRouter.config(
+        navigatorObservers: () => <NavigatorObserver>[
+          TalkerRouteObserver(GetIt.I<Talker>())
+        ],
       ),
-      home: const SplashScreen(),
     );
   }
 }

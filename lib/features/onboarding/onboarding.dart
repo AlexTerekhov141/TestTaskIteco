@@ -1,14 +1,18 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:itecotesttask/core/routes.gr.dart';
 import 'package:itecotesttask/features/onboarding/widgets/TopIndicators.dart';
-
 import '../../core/constants.dart';
 import '../../models/slide_data.dart';
 
+@RoutePage()
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key,});
 
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
+
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
@@ -41,11 +45,29 @@ class _OnboardingPageState extends State<OnboardingPage> {
     _pageController.dispose();
     super.dispose();
   }
+  void _last(){
+    if (_currentIndex == _slides.length - 1) {
+      context.router.replace(ScrollingRoute());
+      return;
+    }
+  }
+  void _next() {
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  void _skip() {
+    _pageController.animateToPage(
+        _slides.length - 1,
+        duration: const Duration(milliseconds: 280),
+        curve: Curves.easeOutCubic
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
     final bool isLastPage = _currentIndex == _slides.length - 1;
 
     return Scaffold(
@@ -56,10 +78,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Text(
               'Iteco',
               textAlign: TextAlign.center,
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: Base.c950,
-              ),),
+            ),
             const SizedBox(height: 12,),
             TopIndicators(
               itemCount: _slides.length,
@@ -96,10 +115,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           Text(
                             slide.title,
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              color: Base.c950,
-                            ),
                           ),
                           const SizedBox(height: 12),
                           Padding(
@@ -107,10 +122,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             child: Text(
                               slide.subtitle,
                               textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                height: 1.45,
-                                color: Base.c700,
-                              ),
                             ),
                           ),
                           const Spacer(),
@@ -126,32 +137,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 width: double.infinity,
                 height: 52,
                 child: FilledButton(
-                  onPressed: ()=><dynamic, dynamic>{},
+                  onPressed: isLastPage ? _last : _next,
                   style: FilledButton.styleFrom(
                     backgroundColor: Green.c500,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  child: Text(
-                    isLastPage ? 'Get started' : 'Next',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: colorScheme.onPrimary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text(isLastPage ? 'Get started' : 'Next',),
                 ),
               ),
             ),
             TextButton(
-              onPressed: ()=><dynamic, dynamic>{},
-              child: Text(
-                isLastPage ? 'Finish' : 'Skip',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Base.c700,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              onPressed: isLastPage ? _last : _skip,
+              child: Text(isLastPage ? 'Finish' : 'Skip',),
             ),
             const SizedBox(height: 8),
           ],
