@@ -1,9 +1,7 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:itecotesttask/core/routes.gr.dart';
 import 'package:itecotesttask/features/onboarding/widgets/TopIndicators.dart';
-import '../../core/constants.dart';
 import '../../models/slide_data.dart';
 
 @RoutePage()
@@ -48,7 +46,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   void _last(){
     if (_currentIndex == _slides.length - 1) {
-      context.router.replace(ScrollingRoute());
+      context.router.replace(const ScrollingRoute());
       return;
     }
   }

@@ -1,5 +1,5 @@
-import 'package:itecotesttask/models/product/product.dart';
 import 'package:equatable/equatable.dart';
+import 'package:itecotesttask/models/product/product.dart';
 
 class ProductsState extends Equatable{
 

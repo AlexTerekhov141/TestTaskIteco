@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itecotesttask/features/scrolling/widgets/product_card.dart';
 
@@ -36,7 +36,7 @@ class _ScrollingScreenState extends State<ScrollingScreen> {
         .state;
     if (state.isLoading || state.isLoadingMore) return;
 
-    final double threshold = 600;
+    const double threshold = 600;
 
     if (_scrollController.position.extentAfter < threshold && !_loadMore) {
       _loadMore = true;

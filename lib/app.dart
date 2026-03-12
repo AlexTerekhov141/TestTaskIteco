@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:itecotesttask/features/splash/splash_screen.dart';
 import 'package:itecotesttask/themes/themes.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'core/routes.dart';

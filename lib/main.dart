@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itecotesttask/bloc/products/products.dart';
 import 'package:itecotesttask/core/injection.dart';
-import 'package:talker/talker.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'app.dart';
 

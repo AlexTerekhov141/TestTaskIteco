@@ -8,11 +8,11 @@ class Rating {
     required this.count,
   });
 
-  final double rate;
-  final int count;
-
   factory Rating.fromJson(Map<String, dynamic> json) =>
       _$RatingFromJson(json);
+
+  final double rate;
+  final int count;
 
   Map<String, dynamic> toJson() => _$RatingToJson(this);
 }

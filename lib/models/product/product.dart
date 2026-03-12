@@ -16,6 +16,9 @@ class Product {
     required this.rating,
   });
 
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+
   final int id;
   final String title;
   final double price;
@@ -23,9 +26,6 @@ class Product {
   final String category;
   final String image;
   final Rating rating;
-
-  factory Product.fromJson(Map<String, dynamic> json) =>
-      _$ProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

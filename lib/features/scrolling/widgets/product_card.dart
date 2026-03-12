@@ -17,13 +17,13 @@ class ProductCard extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Base.c500),
+        side: const BorderSide(color: Base.c500),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text(
               product.title,
               maxLines: 2,
@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Row(
-              children: [
+              children: <Widget>[
                 Text(
                   '\$${product.price.toStringAsFixed(2)}',
                   style: theme.textTheme.titleSmall?.copyWith(

@@ -8,7 +8,7 @@ import 'event.dart';
 import 'state.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
-  ProductsBloc(this.repository) : super(ProductsState()){
+  ProductsBloc(this.repository) : super(const ProductsState()){
     on<FetchProducts>(_onFetchProducts);
     on<FetchMoreProducts>(_onFetchMoreProducts);
   }
@@ -40,7 +40,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       final List<Product> response = await repository.fetchProducts();
       emit(state.copyWith(
         isLoadingMore: false,
-        products: [
+        products: <Product>[
           ...state.products,
           ...response
         ]
