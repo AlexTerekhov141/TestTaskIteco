@@ -45,12 +45,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
     _pageController.dispose();
     super.dispose();
   }
+
   void _last(){
     if (_currentIndex == _slides.length - 1) {
       context.router.replace(ScrollingRoute());
       return;
     }
   }
+
   void _next() {
     _pageController.nextPage(
       duration: const Duration(milliseconds: 280),
@@ -68,6 +70,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final bool isLastPage = _currentIndex == _slides.length - 1;
 
     return Scaffold(
@@ -77,6 +80,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             const SizedBox(height: 20),
             Text(
               'Iteco',
+              style: theme.textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12,),
@@ -114,6 +118,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           const SizedBox(height: 24),
                           Text(
                             slide.title,
+                            style: theme.textTheme.titleMedium,
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 12),
@@ -121,6 +126,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
                               slide.subtitle,
+                              style: theme.textTheme.bodyMedium,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -138,12 +144,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 height: 52,
                 child: FilledButton(
                   onPressed: isLastPage ? _last : _next,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: Green.c500,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
                   child: Text(isLastPage ? 'Get started' : 'Next',),
                 ),
               ),
