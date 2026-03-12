@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,8 @@ class ScrollingScreen extends StatefulWidget{
 class _ScrollingScreenState extends State<ScrollingScreen> {
   late final ScrollController _scrollController;
   bool _loadMore = false;
+  Timer? _retryTimer;
+  bool _hasRetriedAfterError = false;
 
   @override
   void initState() {
@@ -32,12 +36,29 @@ class _ScrollingScreenState extends State<ScrollingScreen> {
         .state;
     if (state.isLoading || state.isLoadingMore) return;
 
-    final double threshold = 200;
+    final double threshold = 600;
 
     if (_scrollController.position.extentAfter < threshold && !_loadMore) {
       _loadMore = true;
+      _hasRetriedAfterError = false;
       context.read<ProductsBloc>().add(FetchMoreProducts());
     }
+  }
+
+  void _retryFetch() {
+    _retryTimer?.cancel();
+
+    _retryTimer = Timer(const Duration(milliseconds: 1), () {
+      if (!mounted) return;
+
+      final ProductsState state = context.read<ProductsBloc>().state;
+
+      if (!state.isLoadingMore && state.error != null && !_hasRetriedAfterError) {
+        _hasRetriedAfterError = true;
+        _loadMore = true;
+        context.read<ProductsBloc>().add(FetchMoreProducts());
+      }
+    });
   }
   @override
   void dispose() {
@@ -56,6 +77,12 @@ class _ScrollingScreenState extends State<ScrollingScreen> {
           (listener: (BuildContext context, ProductsState state) {
           if (!state.isLoadingMore) {
             _loadMore = false;
+          }
+          if (state.error != null) {
+            _retryFetch();
+          } else {
+            _retryTimer?.cancel();
+            _hasRetriedAfterError = false;
           }
         },
           child: BlocBuilder<ProductsBloc, ProductsState>(

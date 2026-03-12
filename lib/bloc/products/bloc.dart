@@ -37,11 +37,12 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     emit(state.copyWith(isLoadingMore: true));
 
     try {
+      final List<Product> response = await repository.fetchProducts();
       emit(state.copyWith(
         isLoadingMore: false,
         products: [
           ...state.products,
-          ...state.products
+          ...response
         ]
       ));
     } catch (e){

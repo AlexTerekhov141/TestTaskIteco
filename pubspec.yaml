@@ -36,16 +36,16 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/images/
+    - assets/images/splash/
     - assets/images/onboarding/
   uses-material-design: true
 flutter_native_splash:
   color: "#006C51"
-  image: assets/images/splash.png
+  image: assets/images/splash/splash.png
 
   android: true
   ios: true
 
   android_12:
-    image: assets/images/splash.png
+    image: assets/images/splash/splash12.png
     icon_background_color: "#006C51"
